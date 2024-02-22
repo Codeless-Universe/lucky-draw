@@ -6,7 +6,7 @@ export default function NavbarLogo() {
     <Nextui_NavbarBrand>
       <Logo />
       <Link color="foreground" href="/">
-        {/* <p className="font-bold text-inherit">Web3Name</p> */}
+        {/* <p className="font-bold text-inherit">ProjectName</p> */}
       </Link>
     </Nextui_NavbarBrand>
   );

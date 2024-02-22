@@ -30,7 +30,7 @@ export function NextUIApp(
     <body className={["min-h-screen bg-background text-foreground", mode].join(" ")}>
       <RenderOnlyClient>
         <NextUIProvider navigate={router.push}>
-          <VoerkaI18nProvider scope={i18nScope} fallback={<div>dddddddddd</div>}>
+          <VoerkaI18nProvider scope={i18nScope} fallback={<div title="error I18n"></div>}>
             <Header></Header>
             {props.children && props.children}
             <Footer />
