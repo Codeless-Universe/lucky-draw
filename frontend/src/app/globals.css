@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+img {
+  /* css-图片下方有空白问题解决方法，https://blog.csdn.net/qq_39111074/article/details/119889034 */
+  display: block;
+}
+
+.bd1 {
+  border: 1px solid deeppink;
+}
+.bd2 {
+  border: 1px solid rgb(8, 167, 252);
+}
+.bd3 {
+  border: 1px solid rgb(255, 204, 0);
+}
+
+/* 苹果手机底部栏 */
+@supports (top: constant(safe-area-inset-bottom)) or (top: env(safe-area-inset-bottom)) {
+  .safe-bottom-wrap {
+    height: calc(0px + constant(safe-area-inset-bottom));
+    height: calc(0px + env(safe-area-inset-bottom));
+  }
+}
+
+/* SVG 图标样式，不直接使用 <XIcon/> 的原因是传参指定大小，组件又不能挂载 html */
+.xicon {
+  width: 1em;
+  height: 1em;
+  display: inline-flex;
+}
+
+.xicon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.xicon svg:not([fill]) {
+  fill: currentColor;
+}
+
+/** 滚动条美化，可与 overflow-auto/overflow-x-auto 配合使用 */
+.beautiful-scrollbar::-webkit-scrollbar {
+  height: 0.25rem;
+  width: 0.25rem;
+}
+
+/* .beautiful-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.025);
+} */
+
+.beautiful-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.5s;
+}
+
+.beautiful-scrollbar::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.beautiful-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.beautiful-scrollbar::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.text-ellipsis-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.text-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.text-ellipsis-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.text-ellipsis-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+.text-ellipsis-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}

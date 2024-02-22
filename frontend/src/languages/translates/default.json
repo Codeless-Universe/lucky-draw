@@ -1,0 +1,7 @@
+{
+  "首页": {
+    "en": "Home",
+    "cht": "首頁",
+    "$files": ["layout\\base\\Header.tsx"]
+  }
+}
