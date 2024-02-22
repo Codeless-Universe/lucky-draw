@@ -3,6 +3,7 @@ import "./globals.css";
 import "animate.css";
 
 import { NextUIApp } from "@/layout/NextUIApp";
+import ConvexClientProvider from "@/convex/ConvexClientProvider";
 
 export const metadata: Metadata = {
   title: "Solidity visualization - codeless universe ",
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <NextUIApp>{children}</NextUIApp>
+      <NextUIApp>
+        <ConvexClientProvider>{children}</ConvexClientProvider>
+      </NextUIApp>
     </html>
   );
 }
