@@ -11,8 +11,9 @@ export default function ConvexDemo() {
     <div>
       <div className="flex flex-col gap-4">{tasks?.map(({ _id, text }) => <div key={_id}>{text}</div>)}</div>
       <Button
-        onPress={() => {
-          createTask({ text: Date.now() + "" });
+        onPress={async () => {
+          let res = await createTask({ text: Date.now() + "" });
+          console.log("result", res.id);
         }}
       >
         Add
