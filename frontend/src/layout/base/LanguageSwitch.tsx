@@ -2,9 +2,19 @@
 
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { useVoerkaI18n } from "@voerkai18n/react";
+import { useEffect, useState } from "react";
 
 export default function LanguageSwitch() {
   const { t, activeLanguage, changeLanguage, languages, defaultLanguage } = useVoerkaI18n();
+  const [currentLanguage, setCurrentLanguage] = useState(activeLanguage);
+
+  useEffect(() => {
+    // 直接使用 activeLanguage，网页会卡顿一下
+    if (activeLanguage == currentLanguage) {
+      return;
+    }
+    setCurrentLanguage(activeLanguage);
+  }, [activeLanguage]);
 
   return (
     <Dropdown>
@@ -15,11 +25,11 @@ export default function LanguageSwitch() {
           {(() => {
             let map = { zh: "简", cht: "繁" };
             // @ts-ignore
-            let retValue = map[activeLanguage];
+            let retValue = map[currentLanguage];
             if (retValue) {
               return retValue;
             }
-            return activeLanguage?.toUpperCase();
+            return currentLanguage?.toUpperCase();
           })()}
         </Button>
       </DropdownTrigger>
@@ -29,8 +39,9 @@ export default function LanguageSwitch() {
         disallowEmptySelection
         selectionMode="single"
         items={languages}
-        selectedKeys={[activeLanguage + ""]}
+        selectedKeys={[currentLanguage + ""]}
         onAction={(key) => {
+          setCurrentLanguage(key.toString());
           changeLanguage(key.toString());
         }}
       >
