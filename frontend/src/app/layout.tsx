@@ -6,8 +6,8 @@ import { NextUIApp } from "@/layout/NextUIApp";
 import ConvexClientProvider from "@/convex/ConvexClientProvider";
 
 export const metadata: Metadata = {
-  title: "Solidity visualization - codeless universe ",
-  description: "Children can also understand contract codes solidity",
+  title: "Lucky draw - codeless universe ",
+  description: "",
 };
 
 export default function RootLayout({
