@@ -11,6 +11,7 @@ export type TProps_SpinWheelDom = {
 export default function SpinWheelDom(props: TProps_SpinWheelDom) {
   const dom = useRef<HTMLDivElement | null>(null);
   const [wheel, setWheel] = useState<any>();
+  const [countDown, setCouneDown] = useState(0);
 
   useEffect(() => {
     let d = dom.current;
@@ -78,9 +79,24 @@ export default function SpinWheelDom(props: TProps_SpinWheelDom) {
           className="turntable-btn cursor-pointer select-none"
           onClick={() => {
             wheel.spinToItem(0, 4000, true, 8);
+
+            let temp = 4;
+            let func = () => {
+              temp = temp - 0.1;
+              if (temp < 0) {
+                temp = 0;
+              }
+              setCouneDown(temp);
+              if (temp > 0) {
+                setTimeout(() => {
+                  func();
+                }, 100);
+              }
+            };
+            func();
           }}
         >
-          Start
+          {countDown == 0 ? "Start" : countDown.toFixed(1)}
         </div>
       </div>
     </div>
