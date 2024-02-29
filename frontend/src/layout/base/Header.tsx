@@ -15,6 +15,7 @@ import NavbarLogo from "../../custom/logo/NavbarLogo";
 import { usePathname, useRouter } from "next/navigation";
 import LanguageSwitch from "@/layout/base/LanguageSwitch";
 import { useVoerkaI18n } from "@voerkai18n/react";
+import { useProjectConfig } from "@/custom/projectConfig";
 
 function NavbarItem_Constom(props: LinkProps) {
   const pathname = usePathname();
@@ -31,12 +32,25 @@ function NavbarItem_Constom(props: LinkProps) {
   );
 }
 
+function NavbarMenuItem_Constom(props: LinkProps) {
+  const pathname = usePathname();
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    setIsActive(pathname == props.href);
+  }, [pathname, props.href]);
+
+  return (
+    <NavbarMenuItem isActive={isActive}>
+      <Link color={isActive ? "primary" : "foreground"} {...props}></Link>
+    </NavbarMenuItem>
+  );
+}
+
 export default function Header() {
   let { maxWidth_CONST } = LayoutStore;
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const { t } = useVoerkaI18n();
-
-  const menuItems = ["Home"];
+  const config = useProjectConfig();
 
   return (
     <Navbar isBordered maxWidth={maxWidth_CONST} onMenuOpenChange={setIsMenuOpen}>
@@ -48,7 +62,13 @@ export default function Header() {
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
         <NavbarLogo />
 
-        <NavbarItem_Constom href="/">{t("首页")}</NavbarItem_Constom>
+        {config.navMenu.map((menu, index) => {
+          return (
+            <NavbarItem_Constom href={menu.href} key={index}>
+              {menu.title}
+            </NavbarItem_Constom>
+          );
+        })}
       </NavbarContent>
 
       <NavbarContent justify="end">
@@ -67,17 +87,10 @@ export default function Header() {
       </NavbarContent>
 
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"}
-              className="w-full"
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
+        {config.navMenu.map((menu, index) => (
+          <NavbarMenuItem_Constom href={menu.href} key={index}>
+            {menu.title}
+          </NavbarMenuItem_Constom>
         ))}
       </NavbarMenu>
     </Navbar>
