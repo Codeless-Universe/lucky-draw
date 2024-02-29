@@ -17,7 +17,7 @@ export default function SpinWheelWrap() {
     d.inited = true;
 
     const props = {
-      overlayImage: "https://crazytim.github.io/spin-wheel/examples/themes/img/example-0-image.svg",
+      // overlayImage: "https://crazytim.github.io/spin-wheel/examples/themes/img/example-0-image.svg",
       itemBackgroundColors: ["#ffc93c", "#66bfbf", "#a2d5f2", "#515070", "#43658b", "#ed6663", "#d54062"],
       items: [
         {
@@ -39,5 +39,21 @@ export default function SpinWheelWrap() {
       console.log(e);
     };
   }, []);
-  return <div ref={dom} className="aspect-square w-full"></div>;
+  return (
+    <div className="">
+      <div ref={dom} className="relative aspect-square">
+        <div
+          className="absolute"
+          style={{
+            left: "calc(50% - 10px)",
+            top: "calc(50% - 10px)",
+            height: "10px",
+            width: "10px",
+          }}
+        >
+          666
+        </div>
+      </div>
+    </div>
+  );
 }
