@@ -34,7 +34,8 @@ export default function SpinWheelDom(props: TProps_SpinWheelDom) {
       colors = [...props.colors];
     }
     if (colors.length == 0) {
-      colors = ["#ffc93c", "#66bfbf", "#a2d5f2", "#515070", "#43658b", "#ed6663", "#d54062"];
+      // colors = ["#ffc93c", "#66bfbf", "#a2d5f2", "#515070", "#43658b", "#ed6663", "#d54062"];
+      colors = ["#fa8c16", "#faad14", "#a0d911", "#52c41a", "#13c2c2", "#1890ff", "#722ed1", "#eb2f96"];
     }
     while (colors.length < labels.length) {
       colors = [...colors, ...colors];
