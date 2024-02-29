@@ -4,7 +4,7 @@ import "./spinwheel.css";
 export default function SpinWheelWrap() {
   return (
     <div className="">
-      <SpinWheelDom />
+      <SpinWheelDom labels={["1", "2"]} />
     </div>
   );
 }
