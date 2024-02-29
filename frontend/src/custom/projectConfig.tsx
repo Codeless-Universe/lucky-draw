@@ -5,11 +5,15 @@ export const useProjectConfig = () => {
   return {
     navMenu: [
       {
-        title: t("线下"),
+        title: t("Single"),
         href: "/",
       },
       {
-        title: t("线上"),
+        title: t("Offline"),
+        href: "/offline",
+      },
+      {
+        title: t("Online"),
         href: "/online",
       },
     ],

@@ -6,6 +6,7 @@ import { Button } from "@nextui-org/react";
 export default function ConvexDemo() {
   const tasks = useQuery(api.tasks.get);
   const createTask = useMutation(api.tasks.createTask);
+  const initData = useMutation(api.wheel.initData);
 
   return (
     <div>
@@ -13,6 +14,7 @@ export default function ConvexDemo() {
       <Button
         onPress={async () => {
           let res = await createTask({ text: Date.now() + "" });
+          await initData({ text: Date.now() + "" });
           console.log("result", res.id);
         }}
       >
