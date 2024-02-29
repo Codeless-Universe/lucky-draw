@@ -31,7 +31,6 @@ export default function SpinWheelWrap() {
         },
       ],
     };
-    console.log("zzzzzzzzzzzzzzz2");
 
     const wheel = new Wheel(d, props);
 
@@ -40,5 +39,5 @@ export default function SpinWheelWrap() {
       console.log(e);
     };
   }, []);
-  return <div ref={dom} className="h-[300px]"></div>;
+  return <div ref={dom} className="aspect-square w-full"></div>;
 }
