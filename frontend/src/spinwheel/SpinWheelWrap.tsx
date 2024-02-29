@@ -31,7 +31,7 @@ export default function SpinWheelWrap() {
         },
       ],
     };
-    console.log("zzzzzzzzzzzzzzz");
+    console.log("zzzzzzzzzzzzzzz2");
 
     const wheel = new Wheel(d, props);
 
