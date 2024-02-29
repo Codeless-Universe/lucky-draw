@@ -5,10 +5,11 @@ import { Wheel } from "spin-wheel";
 
 export type TProps_SpinWheelDom = {
   labels: string[];
+  centerText?: string;
   colors?: string[];
 };
 
-export default function SpinWheelDom(props: TProps_SpinWheelDom) {
+export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_SpinWheelDom) {
   const dom = useRef<HTMLDivElement | null>(null);
   const [wheel, setWheel] = useState<any>();
   const [countDown, setCouneDown] = useState(0);
@@ -78,9 +79,12 @@ export default function SpinWheelDom(props: TProps_SpinWheelDom) {
         <div
           className="turntable-btn cursor-pointer select-none"
           onClick={() => {
-            wheel.spinToItem(0, 4000, true, 8);
+            if (countDown > 0) {
+              return;
+            }
 
-            let temp = 4;
+            let temp = 3;
+            wheel.spinToItem(0, temp * 1000, true, 8);
             let func = () => {
               temp = temp - 0.1;
               if (temp < 0) {
@@ -96,7 +100,7 @@ export default function SpinWheelDom(props: TProps_SpinWheelDom) {
             func();
           }}
         >
-          {countDown == 0 ? "Start" : countDown.toFixed(1)}
+          {countDown == 0 ? centerText : countDown.toFixed(1)}
         </div>
       </div>
     </div>
