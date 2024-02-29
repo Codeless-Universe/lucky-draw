@@ -1,8 +1,11 @@
-import { useEffect, useRef } from "react";
+import { ConfettiHelper } from "@/helper/ConfettiHelper";
+import "./spinwheel.css";
+import { useEffect, useRef, useState } from "react";
 import { Wheel } from "spin-wheel";
 
 export default function SpinWheelWrap() {
   const dom = useRef<HTMLDivElement | null>(null);
+  const [wheel, setWheel] = useState<any>();
 
   useEffect(() => {
     let d = dom.current;
@@ -33,25 +36,27 @@ export default function SpinWheelWrap() {
     };
 
     const wheel = new Wheel(d, props);
-
     window.wheel = wheel;
+    setWheel(wheel);
+
     wheel.onCurrentIndexChange = (e: any) => {
+      // console.log(e);
+    };
+    wheel.onRest = (e: any) => {
       console.log(e);
+      ConfettiHelper.showConfetti(d);
     };
   }, []);
   return (
     <div className="">
       <div ref={dom} className="relative aspect-square">
         <div
-          className="absolute"
-          style={{
-            left: "calc(50% - 10px)",
-            top: "calc(50% - 10px)",
-            height: "10px",
-            width: "10px",
+          className="turntable-btn cursor-pointer select-none"
+          onClick={() => {
+            wheel.spinToItem(0, 4000, true, 8);
           }}
         >
-          666
+          Start
         </div>
       </div>
     </div>

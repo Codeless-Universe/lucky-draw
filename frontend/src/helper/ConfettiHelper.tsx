@@ -7,6 +7,8 @@ export const ConfettiHelper = {
     }
     const domRect = dom.getBoundingClientRect();
     confetti({
+      particleCount: 100,
+      spread: 70,
       origin: {
         x: (domRect.x + domRect.width / 2) / innerWidth,
         y: (domRect.y + domRect.height / 2) / innerHeight,
