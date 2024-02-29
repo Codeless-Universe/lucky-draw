@@ -36,7 +36,7 @@ export default function SpinWheelWrap() {
     const wheel = new Wheel(d, props);
 
     window.wheel = wheel;
-    wheel.onCurrentIndexChange = (e) => {
+    wheel.onCurrentIndexChange = (e: any) => {
       console.log(e);
     };
   }, []);
