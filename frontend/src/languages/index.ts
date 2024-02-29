@@ -3,40 +3,40 @@
  */
 import idMap from "./idMap"                                             // 语言ID映射文件
 import { translate,VoerkaI18nScope  } from "@voerkai18n/runtime"
-import defaultFormatters from "./formatters/zh"  
-import defaultMessages from "./zh"  
+import defaultFormatters from "./formatters/en"  
+import defaultMessages from "./en"  
 import storage  from "./storage"
 
 
 
 const messages = {
-    'zh' :  defaultMessages,
-    'cht' : ()=>import("./cht"),
-	'en' : ()=>import("./en")
+    'en' :  defaultMessages,
+    'zh' : ()=>import("./zh"),
+	'cht' : ()=>import("./cht")
 }
 
 const formatters = {
-    'zh' :  defaultFormatters,
-    'cht' : ()=>import("./formatters/cht"),
-	'en' : ()=>import("./formatters/en")
+    'en' :  defaultFormatters,
+    'zh' : ()=>import("./formatters/zh"),
+	'cht' : ()=>import("./formatters/cht")
 }
 
 // 语言配置文件
 const scopeSettings = {
     "languages": [
         {
-            "name": "zh",
-            "title": "简体中文",
+            "name": "en",
+            "title": "English",
             "default": true,
             "active": true
         },
         {
-            "name": "cht",
-            "title": "繁體中文"
+            "name": "zh",
+            "title": "简体中文"
         },
         {
-            "name": "en",
-            "title": "English"
+            "name": "cht",
+            "title": "繁體中文"
         }
     ],
     "namespaces": {}
