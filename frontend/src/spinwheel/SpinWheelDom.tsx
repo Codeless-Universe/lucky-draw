@@ -74,8 +74,8 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
   }, []);
 
   return (
-    <div className="">
-      <div ref={dom} className="relative aspect-square">
+    <div className="flex aspect-square max-h-[600px] w-full items-center justify-center">
+      <div ref={dom} className="relative h-full w-full">
         <div
           className="turntable-btn cursor-pointer select-none"
           onClick={() => {

@@ -7,6 +7,13 @@ export const get = query({
   },
 });
 
+export const getById = query({
+  args: { id: v.id("wheel") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id);
+  },
+});
+
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 
