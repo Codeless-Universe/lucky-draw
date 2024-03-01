@@ -84,7 +84,8 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
             }
 
             let temp = 3;
-            wheel.spinToItem(0, temp * 1000, true, 8);
+            let toIndex = Math.floor(Math.random() * props.labels.length);
+            wheel.spinToItem(toIndex, temp * 1000, true, 8);
             let func = () => {
               temp = temp - 0.1;
               if (temp < 0) {
