@@ -1,9 +1,11 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export type TRouteRetBean<T extends object> = {
   path: string;
   param: T;
+  router: AppRouterInstance;
   push: (param: { [key: string]: any }) => void;
   replace: (param: { [key: string]: any }) => void;
 };
@@ -61,6 +63,7 @@ export function useRouterHelper<T extends { [key: string]: string | number | str
       allSearchParams: allSearchParams,
       param: Object.assign({}, retParam, otherParam),
       path: pathname,
+      router: router,
       push: (param: { [key: string]: any }) => {
         router.push(pathname, Object.assign({}, allSearchParams, param));
       },
