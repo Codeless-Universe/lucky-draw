@@ -6,12 +6,12 @@ import { useQuery } from "convex/react";
 export default function WheelCardList() {
   const wheels = useQuery(api.wheel.get);
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {wheels?.map((item, index) => {
         console.log(item);
         return (
           <div key={index}>
-            <Card shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")}>
+            <Card className="w-full" shadow="sm" key={index} isPressable onPress={() => console.log("item pressed")}>
               <CardBody className="overflow-visible p-0">
                 <SpinWheelWrap labels={item.wheels[0].items}></SpinWheelWrap>
               </CardBody>
