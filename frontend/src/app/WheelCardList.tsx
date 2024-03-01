@@ -20,7 +20,7 @@ export default function WheelCardList() {
               key={index}
               isPressable
               onPress={() => {
-                routerHeper.router.push("/wheel", { id: item._id });
+                routerHeper.router.push("/wheel?id=" + item._id);
               }}
             >
               <CardBody className="overflow-visible p-0">
