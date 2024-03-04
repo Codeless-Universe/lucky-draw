@@ -16,7 +16,7 @@ export default function LoginButton_ICP() {
   if (isLoading) {
     return <Button isLoading={true}></Button>;
   }
-  if (!isAuthenticated) {
+  if (isAuthenticated) {
     return <AccountUserInfo_Auth0 />;
   }
 

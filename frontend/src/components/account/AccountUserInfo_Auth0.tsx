@@ -4,9 +4,6 @@ import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@
 export default function AccountUserInfo_Auth0(props: {}) {
   const { user, loginWithPopup } = useAuth0();
 
-  const getShotName = (name: string) => {
-    return name.substring(0, 3) + "..." + name.substring(name.length - 3);
-  };
   return (
     <div>
       <Dropdown placement="bottom-end">
@@ -21,8 +18,7 @@ export default function AccountUserInfo_Auth0(props: {}) {
               size="sm"
             />
             <div className="hidden flex-col sm:flex">
-              <span className="text-small">{getShotName(props.user.key)}</span>
-              {/* <span className="text-tiny text-default-400">{user.email}</span> */}
+              <span className="text-tiny text-default-400">{user?.email}</span>
             </div>
           </div>
         </DropdownTrigger>
