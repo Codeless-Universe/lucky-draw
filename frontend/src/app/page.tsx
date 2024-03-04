@@ -10,8 +10,6 @@ export default function Home(props: {}) {
     <PageWrap className="">
       <div>
         <WheelCardList />
-        {/* <SpinWheelDemo/>
-        <ConvexDemo /> */}
       </div>
     </PageWrap>
   );

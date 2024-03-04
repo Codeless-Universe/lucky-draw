@@ -1,12 +1,14 @@
 import { query } from "./_generated/server";
 
 export const get = query({
-  args: {},
-  handler: async (ctx) => {
+  args: { catalog: v.string() },
+  handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    console.log("xxxx", identity);
 
-    let list = await ctx.db.query("wheel").collect();
+    let list = await ctx.db
+      .query("wheel")
+      .filter((q) => q.eq(q.field("catalog"), args.catalog))
+      .collect();
     return {
       list: list,
       identity: identity,

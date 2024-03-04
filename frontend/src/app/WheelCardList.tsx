@@ -6,11 +6,11 @@ import { useQuery } from "convex/react";
 import { useEffect } from "react";
 
 export default function WheelCardList() {
-  const wheels = useQuery(api.wheel.get);
+  const wheels = useQuery(api.wheel.get, { catalog: "one" });
   const routerHeper = useRouterHelper({});
 
   useEffect(() => {
-    console.log("xxxxx", wheels);
+    // console.log("xxxxx", wheels);
   }, [wheels]);
 
   return (
