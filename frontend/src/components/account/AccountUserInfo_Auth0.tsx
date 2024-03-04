@@ -17,12 +17,15 @@ export default function AccountUserInfo_Auth0(props: {}) {
               name={user?.email}
               size="sm"
             />
-            <div className="hidden flex-col sm:flex">
+            {/* <div className="hidden flex-col sm:flex">
               <span className="text-tiny text-default-400">{user?.email}</span>
-            </div>
+            </div> */}
           </div>
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
+          <DropdownItem key="MyProfile" description={user?.email ? user.email : user?.username} onClick={() => {}}>
+            My profile
+          </DropdownItem>
           <DropdownItem
             key="logout"
             color="danger"
