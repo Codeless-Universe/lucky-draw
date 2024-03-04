@@ -30,6 +30,13 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
     if (labels.length <= 2) {
       labels = [...props.labels, ...props.labels];
     }
+    labels = labels.map((item) => {
+      let maxCount = 8;
+      if (item.length < maxCount) {
+        return item;
+      }
+      return item.substring(0, maxCount);
+    });
 
     let colors: typeof props.colors = [];
     if (props.colors) {
@@ -47,6 +54,7 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
       // overlayImage: "https://crazytim.github.io/spin-wheel/examples/themes/img/example-0-image.svg",
       itemBackgroundColors: colors,
       itemLabelFontSizeMax: 40,
+      itemLabelRadius: 0.92,
       items: (() => {
         let retArray: {
           label: string;
