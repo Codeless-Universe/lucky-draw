@@ -31,11 +31,11 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
       labels = [...props.labels, ...props.labels];
     }
     labels = labels.map((item) => {
-      let maxCount = 8;
+      let maxCount = 18;
       if (item.length < maxCount) {
         return item;
       }
-      return item.substring(0, maxCount);
+      return item.substring(0, maxCount - 3) + "...";
     });
 
     let colors: typeof props.colors = [];
@@ -53,8 +53,10 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
     const wheelParam = {
       // overlayImage: "https://crazytim.github.io/spin-wheel/examples/themes/img/example-0-image.svg",
       itemBackgroundColors: colors,
-      itemLabelFontSizeMax: 40,
+      itemLabelFontSizeMax: 30,
       itemLabelRadius: 0.92,
+      itemLabelAlign: "left",
+      itemLabelRotation: 180,
       items: (() => {
         let retArray: {
           label: string;
