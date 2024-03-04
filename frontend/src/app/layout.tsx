@@ -17,9 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <NextUIApp>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
-      </NextUIApp>
+      <ConvexClientProvider>
+        <NextUIApp>{children}</NextUIApp>
+      </ConvexClientProvider>
     </html>
   );
 }

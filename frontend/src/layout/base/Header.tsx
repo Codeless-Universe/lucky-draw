@@ -16,6 +16,7 @@ import { usePathname, useRouter } from "next/navigation";
 import LanguageSwitch from "@/layout/base/LanguageSwitch";
 import { useVoerkaI18n } from "@voerkai18n/react";
 import { useProjectConfig } from "@/custom/projectConfig";
+import LoginButton_Auth0 from "@/components/account/LoginButton_Auth0";
 
 function NavbarItem_Constom(props: LinkProps) {
   const pathname = usePathname();
@@ -84,6 +85,12 @@ export default function Header() {
             Login
           </Button>
         </NavbarItem> */}
+        <NavbarItem>
+          <LoginButton_Auth0 />
+          {/* <Button as={Link} color="primary" href="#" variant="flat">
+            Login
+          </Button> */}
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarMenu>
