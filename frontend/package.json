@@ -12,6 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@nextui-org/react": "^2.2.9",
     "@voerkai18n/react": "^2.1.5",
     "@voerkai18n/runtime": "^2.1.5",
