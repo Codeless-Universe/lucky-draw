@@ -5,8 +5,8 @@ import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { useQuery } from "convex/react";
 import { useEffect } from "react";
 
-export default function WheelCardList() {
-  const wheels = useQuery(api.wheel.get, { catalog: "one" });
+export default function WheelCardList(props: { catalog: string }) {
+  const wheels = useQuery(api.wheel.get, { catalog: props.catalog });
   const routerHeper = useRouterHelper({});
 
   useEffect(() => {

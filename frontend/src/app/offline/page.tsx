@@ -1,7 +1,7 @@
 "use client";
 import PageWrap from "@/layout/base/PageWrap";
 import { useState } from "react";
-import WheelCardList from "./WheelCardList";
+import WheelCardList from "../WheelCardList";
 
 export default function Home(props: {}) {
   const [reloadAt, setReloadAt] = useState(0);
@@ -9,7 +9,7 @@ export default function Home(props: {}) {
   return (
     <PageWrap className="">
       <div>
-        <WheelCardList catalog="one" />
+        <WheelCardList catalog="offline" />
       </div>
     </PageWrap>
   );
