@@ -3,7 +3,14 @@ import { query } from "./_generated/server";
 export const get = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("wheel").collect();
+    const identity = await ctx.auth.getUserIdentity();
+    console.log("xxxx", identity);
+
+    let list = await ctx.db.query("wheel").collect();
+    return {
+      list: list,
+      identity: identity,
+    };
   },
 });
 
