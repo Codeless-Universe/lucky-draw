@@ -5,7 +5,7 @@ import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { useQuery } from "convex/react";
 import { useEffect } from "react";
 
-export default function WheelCardList(props: { catalog: string }) {
+export default function WheelCardList(props: { catalog: string; onItemPress?: (id: string) => void }) {
   const wheels = useQuery(api.wheel.get, { catalog: props.catalog });
   const routerHeper = useRouterHelper({});
 
@@ -24,7 +24,11 @@ export default function WheelCardList(props: { catalog: string }) {
               key={index}
               isPressable
               onPress={() => {
-                routerHeper.router.push("/wheel?id=" + item._id);
+                if (props.onItemPress) {
+                  props.onItemPress(item._id);
+                } else {
+                  routerHeper.router.push("/wheel?id=" + item._id);
+                }
               }}
             >
               <CardBody className="overflow-visible p-0">
