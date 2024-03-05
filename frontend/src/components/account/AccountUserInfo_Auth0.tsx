@@ -30,7 +30,7 @@ export default function AccountUserInfo_Auth0(props: {}) {
             key="logout"
             color="danger"
             onClick={async () => {
-              await logout();
+              await logout({ logoutParams: { returnTo: window.location.origin } });
             }}
           >
             Log Out
