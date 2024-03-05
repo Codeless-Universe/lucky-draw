@@ -73,6 +73,9 @@ export default function Home(props: {}) {
                 <ListboxItem key="new" description="Result1 | restul2">
                   Play1
                 </ListboxItem>
+                <ListboxItem key="new" description="Result1 | restul2">
+                  Play2
+                </ListboxItem>
               </Listbox>
             </CardBody>
           </Card>
