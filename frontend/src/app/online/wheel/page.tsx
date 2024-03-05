@@ -5,7 +5,7 @@ import PageWrap from "@/layout/base/PageWrap";
 import SpinWheelWrap from "@/spinwheel/SpinWheelWrap";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
-import { Button, Card, CardBody, Tab, Tabs, User } from "@nextui-org/react";
+import { Button, Card, CardBody, Listbox, ListboxItem, Tab, Tabs, User } from "@nextui-org/react";
 import { useQuery } from "convex/react";
 import { resolve } from "path";
 import { useState } from "react";
@@ -51,7 +51,7 @@ export default function Home(props: {}) {
                     }}
                   />
                 </div>
-                
+
                 <div>
                   <User
                     name="Jane Doe"
@@ -62,7 +62,6 @@ export default function Home(props: {}) {
                     }}
                   />
                 </div>
-
               </div>
             </CardBody>
           </Card>
@@ -70,9 +69,11 @@ export default function Home(props: {}) {
         <Tab key="music" title="Records">
           <Card>
             <CardBody>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-              pariatur.
+              <Listbox aria-label="Actions" onAction={(key) => alert(key)}>
+                <ListboxItem key="new" description="Result1 | restul2">
+                  Play1
+                </ListboxItem>
+              </Listbox>
             </CardBody>
           </Card>
         </Tab>
