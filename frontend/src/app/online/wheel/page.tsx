@@ -20,9 +20,7 @@ export default function Home(props: {}) {
   return (
     <PageWrap className="">
       <div className="grid grid-cols-2 gap-2">
-        <SpinWheelWrap
-          labels={["#fa8c16", "#faad14", "#a0d911", "#52c41a", "#13c2c2", "#1890ff", "#722ed1", "#eb2f96"]}
-        ></SpinWheelWrap>
+        <SpinWheelWrap labels={["Player 1", "Player 2"]}></SpinWheelWrap>
 
         <SpinWheelWrap labels={wheel.wheels[0].items}></SpinWheelWrap>
       </div>

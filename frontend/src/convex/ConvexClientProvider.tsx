@@ -12,9 +12,11 @@ export default function ConvexClientProvider({ children }: { children: ReactNode
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID!}
-      authorizationParams={{
-        redirect_uri: window.location.origin,
-      }}
+      authorizationParams={
+        {
+          // redirect_uri: window.location.origin,
+        }
+      }
       useRefreshTokens={true}
       cacheLocation="localstorage"
     >
