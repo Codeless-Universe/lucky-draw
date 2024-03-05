@@ -5,7 +5,7 @@ import PageWrap from "@/layout/base/PageWrap";
 import SpinWheelWrap from "@/spinwheel/SpinWheelWrap";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
-import { Button } from "@nextui-org/react";
+import { Button, Card, CardBody, Tab, Tabs } from "@nextui-org/react";
 import { useQuery } from "convex/react";
 import { resolve } from "path";
 import { useState } from "react";
@@ -36,8 +36,28 @@ export default function Home(props: {}) {
         >
           Start
         </ButtonLoading>
-        <Button>In</Button>
       </div>
+
+      <Tabs aria-label="Options" className="mt-6">
+        <Tab key="photos" title="Players">
+          <Card>
+            <CardBody>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat.
+            </CardBody>
+          </Card>
+        </Tab>
+        <Tab key="music" title="Records">
+          <Card>
+            <CardBody>
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+              pariatur.
+            </CardBody>
+          </Card>
+        </Tab>
+      </Tabs>
     </PageWrap>
   );
 }
