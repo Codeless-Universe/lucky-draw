@@ -5,7 +5,7 @@ import PageWrap from "@/layout/base/PageWrap";
 import SpinWheelWrap from "@/spinwheel/SpinWheelWrap";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
-import { Button, Card, CardBody, Tab, Tabs } from "@nextui-org/react";
+import { Button, Card, CardBody, Tab, Tabs, User } from "@nextui-org/react";
 import { useQuery } from "convex/react";
 import { resolve } from "path";
 import { useState } from "react";
@@ -40,9 +40,30 @@ export default function Home(props: {}) {
         <Tab key="photos" title="Players">
           <Card>
             <CardBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat.
+              <div className="flex flex-col items-start gap-2">
+                <div>
+                  <User
+                    name="Jane Doe"
+                    description="Product Designer"
+                    avatarProps={{
+                      name: "Jan",
+                      size: "sm",
+                    }}
+                  />
+                </div>
+                
+                <div>
+                  <User
+                    name="Jane Doe"
+                    description="Product Designer"
+                    avatarProps={{
+                      name: "Jan",
+                      size: "sm",
+                    }}
+                  />
+                </div>
+
+              </div>
             </CardBody>
           </Card>
         </Tab>
