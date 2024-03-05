@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 
 export default function AccountUserInfo_Auth0(props: {}) {
-  const { user, loginWithPopup } = useAuth0();
+  const { user, logout } = useAuth0();
 
   return (
     <div>
@@ -30,7 +30,7 @@ export default function AccountUserInfo_Auth0(props: {}) {
             key="logout"
             color="danger"
             onClick={async () => {
-              await loginWithPopup();
+              await logout();
             }}
           >
             Log Out
