@@ -1,4 +1,4 @@
-import LoginButton_Auth0 from "@/pkgs/auth0/LoginButton_Auth0";
+import LoginButton_Auth0 from "@/pkgs/auth0/components/LoginButton_Auth0";
 import LanguageSwitch from "@/pkgs/base/layout/base/LanguageSwitch";
 import ThemeDarkSwitch from "@/pkgs/base/layout/theme/ThemeDarkSwitch";
 import { useVoerkaI18n } from "@voerkai18n/react";
