@@ -1,4 +1,4 @@
-import ThemeDarkSwitch from "@/layout/theme/ThemeDarkSwitch";
+import { useProjectConfig } from "@/custom/projectConfig";
 import {
   Link,
   LinkProps,
@@ -9,14 +9,13 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/react";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { LayoutStore } from "../helper/LayoutHelper";
-import NavbarLogo from "../../custom/logo/NavbarLogo";
-import { usePathname, useRouter } from "next/navigation";
-import LanguageSwitch from "@/layout/base/LanguageSwitch";
-import { useVoerkaI18n } from "@voerkai18n/react";
-import { useProjectConfig } from "@/custom/projectConfig";
-import LoginButton_Auth0 from "@/components/account/LoginButton_Auth0";
+import NavbarLogo from "@/custom/logo/NavbarLogo";
+import LanguageSwitch from "./LanguageSwitch";
+import ThemeDarkSwitch from "../theme/ThemeDarkSwitch";
+import LoginButton_Auth0 from "../../components/account/LoginButton_Auth0";
 
 function NavbarItem_Constom(props: LinkProps) {
   const pathname = usePathname();

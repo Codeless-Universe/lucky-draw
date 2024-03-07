@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@nextui-org/react";
-import SVGWrap from "@/components/icon/SVGWrap";
 import { ThemeDarkHelper, ThemeDarkStore } from "./ThemeDarkHelper";
 import { useEffect } from "react";
+import SVGWrap from "../../components/icon/SVGWrap";
 
 export default function ThemeDarkSwitch() {
   const { mode } = ThemeDarkStore;

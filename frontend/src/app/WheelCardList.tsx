@@ -1,5 +1,5 @@
-import { useRouterHelper } from "@/helper/useRouterHelper";
-import SpinWheelWrap from "@/spinwheel/SpinWheelWrap";
+import { useRouterHelper } from "@/pkgs/base/helper/useRouterHelper";
+import SpinWheelWrap from "@/pkgs/spinwheel/SpinWheelWrap";
 import { api } from "@convex/_generated/api";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { useQuery } from "convex/react";

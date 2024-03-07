@@ -1,7 +1,7 @@
 "use client";
-import PageWrap from "@/layout/base/PageWrap";
 import { useState } from "react";
 import WheelCardList from "./WheelCardList";
+import PageWrap from "@/pkgs/base/layout/base/PageWrap";
 
 export default function Home(props: {}) {
   const [reloadAt, setReloadAt] = useState(0);

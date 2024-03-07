@@ -1,7 +1,7 @@
-import { ConfettiHelper } from "@/helper/ConfettiHelper";
 import "./spinwheel.css";
 import { useEffect, useRef, useState } from "react";
 import { Wheel } from "spin-wheel";
+import { ConfettiHelper } from "../base/helper/ConfettiHelper";
 
 export type TProps_SpinWheelDom = {
   labels: string[];

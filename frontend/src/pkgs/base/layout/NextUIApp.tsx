@@ -6,11 +6,11 @@ import * as React from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import Header from "./base/Header";
-import { ThemeDarkHelper, ThemeDarkStore } from "@/layout/theme/ThemeDarkHelper";
 import RenderOnlyClient from "./RenderOnlyClient";
 import Footer from "./base/Footer";
 import { i18nScope } from "@/languages";
 import { VoerkaI18nProvider } from "@voerkai18n/react";
+import { ThemeDarkHelper, ThemeDarkStore } from "./theme/ThemeDarkHelper";
 
 export function NextUIApp(
   props: Readonly<{
