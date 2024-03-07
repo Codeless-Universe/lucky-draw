@@ -1,7 +1,7 @@
 "use client";
-import { useRouterHelper } from "@/helper/useRouterHelper";
-import PageWrap from "@/layout/base/PageWrap";
-import SpinWheelWrap from "@/spinwheel/SpinWheelWrap";
+import { useRouterHelper } from "@/pkgs/base/helper/useRouterHelper";
+import PageWrap from "@/pkgs/base/layout/base/PageWrap";
+import SpinWheelWrap from "@/pkgs/spinwheel/SpinWheelWrap";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { useQuery } from "convex/react";

@@ -1,8 +1,8 @@
 "use client";
-import ButtonLoading from "@/components/feedback/ButtonLoading";
-import { useRouterHelper } from "@/helper/useRouterHelper";
-import PageWrap from "@/layout/base/PageWrap";
-import SpinWheelWrap from "@/spinwheel/SpinWheelWrap";
+import ButtonLoading from "@/pkgs/base/components/feedback/ButtonLoading";
+import { useRouterHelper } from "@/pkgs/base/helper/useRouterHelper";
+import PageWrap from "@/pkgs/base/layout/base/PageWrap";
+import SpinWheelWrap from "@/pkgs/spinwheel/SpinWheelWrap";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { Button, Card, CardBody, Listbox, ListboxItem, Tab, Tabs, User } from "@nextui-org/react";
