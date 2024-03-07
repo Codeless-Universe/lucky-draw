@@ -1,3 +1,4 @@
+import NavbarLogo from "@/custom/logo/NavbarLogo";
 import { useProjectConfig } from "@/custom/projectConfig";
 import {
   Link,
@@ -12,10 +13,6 @@ import {
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { LayoutStore } from "../helper/LayoutHelper";
-import NavbarLogo from "@/custom/logo/NavbarLogo";
-import LanguageSwitch from "./LanguageSwitch";
-import ThemeDarkSwitch from "../theme/ThemeDarkSwitch";
-import LoginButton_Auth0 from "../../components/account/LoginButton_Auth0";
 
 function NavbarItem_Constom(props: LinkProps) {
   const pathname = usePathname();
@@ -62,7 +59,7 @@ export default function Header() {
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
         <NavbarLogo />
 
-        {config.navMenu.map((menu, index) => {
+        {config.nav.menus.map((menu, index) => {
           return (
             <NavbarItem_Constom href={menu.href} key={index}>
               {menu.title}
@@ -72,28 +69,13 @@ export default function Header() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem>
-          <LanguageSwitch />
-        </NavbarItem>
-
-        <NavbarItem>
-          <ThemeDarkSwitch />
-        </NavbarItem>
-        {/* <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Login
-          </Button>
-        </NavbarItem> */}
-        <NavbarItem>
-          <LoginButton_Auth0 />
-          {/* <Button as={Link} color="primary" href="#" variant="flat">
-            Login
-          </Button> */}
-        </NavbarItem>
+        {config.nav.rightItems.map((item, index) => {
+          return <NavbarItem key={index}>{item}</NavbarItem>;
+        })}
       </NavbarContent>
 
       <NavbarMenu>
-        {config.navMenu.map((menu, index) => (
+        {config.nav.menus.map((menu, index) => (
           <NavbarMenuItem_Constom href={menu.href} key={index}>
             {menu.title}
           </NavbarMenuItem_Constom>
