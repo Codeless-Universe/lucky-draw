@@ -10,10 +10,13 @@ import { toast } from "react-toastify";
 import OnlineMain_Players from "./OnlineMain_Players";
 
 export default function OnlineMainGame(props: {}) {
-  const { param, replace } = useRouterHelper({ id: "", ownerId: "" });
+  const { param, replace } = useRouterHelper({ id: "", roomId: "" });
 
-  const wheel = useQuery(api.wheel.getById, { id: param.id as Id<"wheel"> });
-  if (!wheel) {
+  // 查询
+  const res = useQuery(api.room.getById, { id: param.roomId as Id<"room"> });
+  // const wheel = useQuery(api.wheel.getById, { id: param.id as Id<"wheel"> });
+
+  if (!res) {
     return <div>loading</div>;
   }
 
@@ -32,13 +35,13 @@ export default function OnlineMainGame(props: {}) {
             />
           </div>
         </div>
-        <SpinWheelWrap labels={wheel.wheels[0].items}></SpinWheelWrap>
+        <SpinWheelWrap labels={res.wheel.wheels[0].items}></SpinWheelWrap>
       </div>
 
       <Tabs aria-label="Options" className="mt-6">
         <Tab key="photos" title="Players">
           <Card>
-            <CardBody>{param.ownerId ? <OnlineMain_Players ownerSubject={param.ownerId} /> : <></>}</CardBody>
+            <CardBody>{res.room ? <OnlineMain_Players room={res.room} /> : <></>}</CardBody>
           </Card>
         </Tab>
         <Tab key="music" title="Records">

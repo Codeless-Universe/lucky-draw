@@ -5,16 +5,16 @@ import { UserIdentity } from "convex/server";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-export default function OnlineMain_Players(props: { ownerSubject: string }) {
+export default function OnlineMain_Players(props: { room: any }) {
   const joinWheel = useMutation(api.room.joinWheel);
   const list = useQuery(api.room.queryMembers, {
-    ownerSubject: props.ownerSubject,
+    roomId: props.room._id,
   });
 
   useEffect(() => {
     let join = async () => {
       await joinWheel({
-        ownerSubject: props.ownerSubject,
+        roomId: props.room._id,
       });
     };
 
@@ -44,7 +44,7 @@ export default function OnlineMain_Players(props: { ownerSubject: string }) {
               }}
             />
             {(() => {
-              if (user.subject == props.ownerSubject) {
+              if (user.subject == props.room.ownerSubject) {
                 return (
                   <Chip size="sm" color="primary">
                     Owner

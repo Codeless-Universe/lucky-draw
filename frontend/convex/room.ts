@@ -36,8 +36,20 @@ export const createRoom = mutation({
   },
 });
 
+export const getById = query({
+  args: { id: v.id("room") },
+  handler: async (ctx, args) => {
+    const room = await ctx.db.get(args.id);
+    const wheel = await ctx.db.get(room.wheelId);
+    return {
+      room,
+      wheel,
+    };
+  },
+});
+
 export const joinWheel = mutation({
-  args: { ownerSubject: v.string() },
+  args: { roomId: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity?.subject) {
@@ -46,15 +58,12 @@ export const joinWheel = mutation({
 
     const list = await ctx.db
       .query(ROOM_MEMBER)
-      .filter((q) =>
-        q.and(q.eq(q.field("ownerSubject"), args.ownerSubject), q.eq(q.field("memberSubject"), identity?.subject)),
-      )
+      .filter((q) => q.and(q.eq(q.field("roomId"), args.roomId), q.eq(q.field("memberSubject"), identity?.subject)))
       .collect();
 
     if (!list || list.length == 0) {
       await ctx.db.insert(ROOM_MEMBER, {
-        ownerSubject: args.ownerSubject,
-        currentUserSubject: args.ownerSubject == identity?.subject ? args.ownerSubject : undefined,
+        roomId: args.roomId,
         memberSubject: identity?.subject,
         lastAt: Date.now(),
         status: "PLAY",
@@ -72,16 +81,12 @@ export const joinWheel = mutation({
 });
 
 export const queryMembers = query({
-  args: { ownerSubject: v.string() },
+  args: { roomId: v.string() },
   handler: async (ctx, args) => {
     const list = await ctx.db
       .query(ROOM_MEMBER)
-      .filter((q) =>
-        q.and(q.eq(q.field("ownerSubject"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)),
-      )
+      .filter((q) => q.and(q.eq(q.field("roomId"), args.roomId), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)))
       .collect();
-    // TODO OWNER 一定要加载出来
-
     return list;
   },
 });
