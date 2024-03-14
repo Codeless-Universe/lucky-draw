@@ -2,6 +2,7 @@ import { api } from "@convex/_generated/api";
 import { User, Button, Chip } from "@nextui-org/react";
 import { useMutation, useQuery } from "convex/react";
 import { UserIdentity } from "convex/server";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function OnlineMain_Players(props: { ownerSubject: string }) {
@@ -9,6 +10,23 @@ export default function OnlineMain_Players(props: { ownerSubject: string }) {
   const list = useQuery(api.room.queryMembers, {
     ownerSubject: props.ownerSubject,
   });
+
+  useEffect(() => {
+    let join = async () => {
+      await joinWheel({
+        ownerSubject: props.ownerSubject,
+      });
+    };
+
+    const intervalId = setInterval(() => {
+      join();
+    }, 40 * 1000);
+    join();
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col items-start gap-2">
@@ -35,9 +53,9 @@ export default function OnlineMain_Players(props: { ownerSubject: string }) {
               }
               return <></>;
             })()}
-            <Chip size="sm" color="warning" variant="dot">
+            {/* <Chip size="sm" color="warning" variant="dot">
               Current
-            </Chip>
+            </Chip> */}
             {(() => {
               if (lastAt + 60000 < Date.now())
                 return (
