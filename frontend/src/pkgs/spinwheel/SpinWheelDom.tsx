@@ -7,12 +7,16 @@ export type TProps_SpinWheelDom = {
   labels: string[];
   centerText?: string;
   colors?: string[];
+  onTap?: () => void;
+  displayResult?: {
+    random: number;
+    lastAt: number;
+  };
 };
 
 export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_SpinWheelDom) {
   const dom = useRef<HTMLDivElement | null>(null);
   const [wheel, setWheel] = useState<any>();
-  const [countDown, setCouneDown] = useState(0);
 
   useEffect(() => {
     let d = dom.current;
@@ -83,32 +87,32 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
     };
   }, []);
 
+  useEffect(() => {
+    if (!props.displayResult) {
+      return;
+    }
+    if (!wheel) {
+      return;
+    }
+
+    let temp = 3;
+    let toIndex = Math.floor(props.displayResult.random * props.labels.length);
+    wheel.spinToItem(toIndex, temp * 1000, true, 8);
+  }, [props.displayResult, wheel]);
+
   return (
     <div className="flex aspect-square max-h-[600px] w-full items-center justify-center">
       <div ref={dom} className="relative h-full w-full">
         <div
           className="turntable-btn cursor-pointer select-none"
           onClick={() => {
-            if (countDown > 0) {
+            if (props.onTap) {
+              props.onTap();
               return;
             }
-
             let temp = 3;
             let toIndex = Math.floor(Math.random() * props.labels.length);
             wheel.spinToItem(toIndex, temp * 1000, true, 8);
-            let func = () => {
-              temp = temp - 0.1;
-              if (temp < 0) {
-                temp = 0;
-              }
-              setCouneDown(temp);
-              if (temp > 0) {
-                setTimeout(() => {
-                  func();
-                }, 100);
-              }
-            };
-            func();
           }}
         >
           {/* {countDown == 0 ? centerText : countDown.toFixed(1)} */}
