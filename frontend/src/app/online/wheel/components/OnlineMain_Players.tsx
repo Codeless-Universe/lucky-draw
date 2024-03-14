@@ -1,34 +1,34 @@
 import { api } from "@convex/_generated/api";
 import { User, Button } from "@nextui-org/react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
+import { UserIdentity } from "convex/server";
 import { toast } from "react-toastify";
 
 export default function OnlineMain_Players(props: { ownerSubject: string }) {
   const joinWheel = useMutation(api.room.joinWheel);
+  const list = useQuery(api.room.queryMembers, {
+    ownerSubject: props.ownerSubject,
+  });
+
+  console.log(list);
 
   return (
     <div className="flex flex-col items-start gap-2">
-      <div>
-        <User
-          name="Jane Doe"
-          description="Product Designer"
-          avatarProps={{
-            name: "Jan",
-            size: "sm",
-          }}
-        />
-      </div>
-
-      <div>
-        <User
-          name="Jane Doe"
-          description="Product Designer"
-          avatarProps={{
-            name: "Jan",
-            size: "sm",
-          }}
-        />
-      </div>
+      {list?.map((item) => {
+        const user: UserIdentity = item.userIdentity;
+        return (
+          <div key={user.subject}>
+            <User
+              name={user.name}
+              description={user.email}
+              avatarProps={{
+                name: user.name || user.email,
+                size: "sm",
+              }}
+            />
+          </div>
+        );
+      })}
 
       <div>
         <Button

@@ -1,7 +1,8 @@
 import { Id } from "./_generated/dataModel";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
+const ROOM_MEMBER = "room_member";
 // Create a new task with the given text
 export const joinWheel = mutation({
   args: { ownerSubject: v.string() },
@@ -12,12 +13,12 @@ export const joinWheel = mutation({
     }
 
     const list = await ctx.db
-      .query("room_member")
+      .query(ROOM_MEMBER)
       .filter((q) => q.and(q.eq(q.field("ownerId"), args.ownerSubject), q.eq(q.field("memberId"), identity?.subject)))
       .collect();
 
     if (!list || list.length == 0) {
-      await ctx.db.insert("room_member", {
+      await ctx.db.insert(ROOM_MEMBER, {
         ownerId: args.ownerSubject,
         memberId: identity?.subject,
         lastAt: Date.now(),
@@ -32,5 +33,19 @@ export const joinWheel = mutation({
       });
     }
     return true;
+  },
+});
+
+export const queryMembers = query({
+  args: { ownerSubject: v.string() },
+  handler: async (ctx, args) => {
+    const list = await ctx.db
+      .query(ROOM_MEMBER)
+      .filter((q) =>
+        q.and(q.eq(q.field("ownerId"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 10)),
+      )
+      .collect();
+
+    return list;
   },
 });
