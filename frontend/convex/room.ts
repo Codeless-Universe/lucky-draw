@@ -3,7 +3,39 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 const ROOM_MEMBER = "room_member";
-// Create a new task with the given text
+
+export const createRoom = mutation({
+  args: { wheelId: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity?.subject) {
+      return { code: -1, msg: "Please login." };
+    }
+
+    // 创建房间
+    const id = await ctx.db.insert("room", {
+      ownerSubject: identity.subject,
+      currentUserSubject: identity.subject,
+      wheelId: args.wheelId,
+      lastAt: Date.now(),
+      userIdentity: JSON.parse(JSON.stringify(identity)),
+    });
+
+    // 创建成员
+    await ctx.db.insert(ROOM_MEMBER, {
+      roomId: id,
+      memberSubject: identity?.subject,
+      lastAt: Date.now(),
+      status: "PLAY",
+      userIdentity: JSON.parse(JSON.stringify(identity)),
+    });
+
+    return {
+      id,
+    };
+  },
+});
+
 export const joinWheel = mutation({
   args: { ownerSubject: v.string() },
   handler: async (ctx, args) => {
