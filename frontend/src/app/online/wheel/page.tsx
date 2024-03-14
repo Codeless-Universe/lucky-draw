@@ -7,8 +7,6 @@ import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { Button, Card, CardBody, Listbox, ListboxItem, Tab, Tabs, User } from "@nextui-org/react";
 import { useQuery } from "convex/react";
-import { resolve } from "path";
-import { useState } from "react";
 
 export default function Home(props: {}) {
   const { param } = useRouterHelper({ id: "" });
@@ -33,18 +31,6 @@ export default function Home(props: {}) {
           </div>
         </div>
         <SpinWheelWrap labels={wheel.wheels[0].items}></SpinWheelWrap>
-      </div>
-
-      <div className=" flex-rows flex items-center justify-center gap-2">
-        <ButtonLoading
-          onClick={async () => {
-            await new Promise((resolve) => {
-              setTimeout(resolve, 3000);
-            });
-          }}
-        >
-          Start
-        </ButtonLoading>
       </div>
 
       <Tabs aria-label="Options" className="mt-6">
