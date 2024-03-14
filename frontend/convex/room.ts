@@ -48,6 +48,7 @@ export const queryMembers = query({
         q.and(q.eq(q.field("ownerSubject"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)),
       )
       .collect();
+    // TODO OWNER 一定要加载出来
 
     return list;
   },

@@ -38,9 +38,7 @@ export default function OnlineMainGame(props: {}) {
       <Tabs aria-label="Options" className="mt-6">
         <Tab key="photos" title="Players">
           <Card>
-            <CardBody>
-              <OnlineMain_Players ownerSubject={param.ownerId} />
-            </CardBody>
+            <CardBody>{param.ownerId ? <OnlineMain_Players ownerSubject={param.ownerId} /> : <></>}</CardBody>
           </Card>
         </Tab>
         <Tab key="music" title="Records">
