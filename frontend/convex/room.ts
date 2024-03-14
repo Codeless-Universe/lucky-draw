@@ -1,3 +1,4 @@
+import { Id } from "./_generated/dataModel";
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 
@@ -12,7 +13,7 @@ export const joinWheel = mutation({
 
     const list = await ctx.db
       .query("room_member")
-      .filter((q) => q.add(q.eq(q.field("ownerId"), args.ownerSubject), q.eq(q.field("memberId"), identity?.subject)))
+      .filter((q) => q.and(q.eq(q.field("ownerId"), args.ownerSubject), q.eq(q.field("memberId"), identity?.subject)))
       .collect();
 
     if (!list || list.length == 0) {
@@ -24,7 +25,7 @@ export const joinWheel = mutation({
       });
     } else {
       let id = list[0]._id;
-      await ctx.db.patch(id, { lastAt: Date.now() });
+      await ctx.db.patch(id as Id<"room_member">, { lastAt: Date.now() });
     }
     return true;
   },
