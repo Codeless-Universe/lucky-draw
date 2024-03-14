@@ -14,13 +14,16 @@ export const joinWheel = mutation({
 
     const list = await ctx.db
       .query(ROOM_MEMBER)
-      .filter((q) => q.and(q.eq(q.field("ownerId"), args.ownerSubject), q.eq(q.field("memberId"), identity?.subject)))
+      .filter((q) =>
+        q.and(q.eq(q.field("ownerSubject"), args.ownerSubject), q.eq(q.field("memberSubject"), identity?.subject)),
+      )
       .collect();
 
     if (!list || list.length == 0) {
       await ctx.db.insert(ROOM_MEMBER, {
-        ownerId: args.ownerSubject,
-        memberId: identity?.subject,
+        ownerSubject: args.ownerSubject,
+        currentUserSubject: args.ownerSubject == identity?.subject ? args.ownerSubject : undefined,
+        memberSubject: identity?.subject,
         lastAt: Date.now(),
         status: "PLAY",
         userIdentity: JSON.parse(JSON.stringify(identity)),
@@ -42,10 +45,38 @@ export const queryMembers = query({
     const list = await ctx.db
       .query(ROOM_MEMBER)
       .filter((q) =>
-        q.and(q.eq(q.field("ownerId"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)),
+        q.and(q.eq(q.field("ownerSubject"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)),
       )
       .collect();
 
     return list;
+  },
+});
+
+export const play = mutation({
+  args: { ownerSubject: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity?.subject) {
+      return { code: -1, msg: "Please login." };
+    }
+
+    const list = await ctx.db
+      .query(ROOM_MEMBER)
+      .filter((q) =>
+        q.and(q.eq(q.field("ownerSubject"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)),
+      )
+      .collect();
+
+    const ownerRecord = list[0];
+    if (ownerRecord?.currentUser != identity.subject) {
+      return { code: -1, msg: "Now the player is not you." };
+    }
+
+    //写入一个随机数
+
+    //将游戏记录写到新表里
+
+    return true;
   },
 });
