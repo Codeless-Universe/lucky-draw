@@ -95,7 +95,7 @@ export function useRouterHelper<T extends { [key: string]: string | number | str
     let newObj = getParams();
     // console.log("新路由", newObj);
     setRetState(newObj);
-  }, [router]);
+  }, [pathname, router, searchParams]);
 
   return retState;
 }

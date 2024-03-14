@@ -20,6 +20,12 @@ export default function OnlineMain() {
     //   replace({ ownerId: [user?.sub] });
     // }
     if (!param.roomId) {
+      createRoom({
+        wheelId: param.id,
+      }).then((res) => {
+        console.log("id", res.id);
+        replace({ roomId: [res.id] });
+      });
     }
   }, [param, user, isAuthenticated]);
 
@@ -32,18 +38,7 @@ export default function OnlineMain() {
     );
   }
   if (!param.roomId) {
-    return (
-      <div
-        onClick={async () => {
-          const res = await createRoom({
-            wheelId: param.id,
-          });
-          console.log("id", res.id);
-        }}
-      >
-        Creating room...{" "}
-      </div>
-    );
+    return <div onClick={async () => {}}>Creating room...</div>;
   }
 
   return <OnlineMainGame />;
