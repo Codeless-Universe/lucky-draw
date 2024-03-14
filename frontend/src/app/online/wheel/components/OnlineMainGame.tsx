@@ -7,9 +7,11 @@ import { Id } from "@convex/_generated/dataModel";
 import { Button, Card, CardBody, Listbox, ListboxItem, Tab, Tabs, User } from "@nextui-org/react";
 import { useQuery } from "convex/react";
 import { toast } from "react-toastify";
+import OnlineMain_Players from "./OnlineMain_Players";
 
 export default function OnlineMainGame(props: {}) {
-  const { param } = useRouterHelper({ id: "" });
+  const { param, replace } = useRouterHelper({ id: "", ownerId: "" });
+
   const wheel = useQuery(api.wheel.getById, { id: param.id as Id<"wheel"> });
   if (!wheel) {
     return <div>loading</div>;
@@ -37,39 +39,7 @@ export default function OnlineMainGame(props: {}) {
         <Tab key="photos" title="Players">
           <Card>
             <CardBody>
-              <div className="flex flex-col items-start gap-2">
-                <div>
-                  <User
-                    name="Jane Doe"
-                    description="Product Designer"
-                    avatarProps={{
-                      name: "Jan",
-                      size: "sm",
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <User
-                    name="Jane Doe"
-                    description="Product Designer"
-                    avatarProps={{
-                      name: "Jan",
-                      size: "sm",
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <Button
-                    onPress={() => {
-                      toast("Wow so easy!");
-                    }}
-                  >
-                    Invite friends
-                  </Button>
-                </div>
-              </div>
+              <OnlineMain_Players ownerSubject={param.ownerId} />
             </CardBody>
           </Card>
         </Tab>

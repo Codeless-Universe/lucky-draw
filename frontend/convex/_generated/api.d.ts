@@ -14,6 +14,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as room from "../room.js";
 import type * as tasks from "../tasks.js";
 import type * as wheel from "../wheel.js";
 
@@ -26,6 +27,7 @@ import type * as wheel from "../wheel.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  room: typeof room;
   tasks: typeof tasks;
   wheel: typeof wheel;
 }>;
