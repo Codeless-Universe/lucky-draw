@@ -11,6 +11,7 @@ import Footer from "./base/Footer";
 import { i18nScope } from "@/languages";
 import { VoerkaI18nProvider } from "@voerkai18n/react";
 import { ThemeDarkHelper, ThemeDarkStore } from "./theme/ThemeDarkHelper";
+import BaseToast from "./base/BaseToast";
 
 export function NextUIApp(
   props: Readonly<{
@@ -31,6 +32,7 @@ export function NextUIApp(
       <RenderOnlyClient>
         <NextUIProvider navigate={router.push}>
           <VoerkaI18nProvider scope={i18nScope} fallback={<div title="error I18n"></div>}>
+            <BaseToast />
             <Header></Header>
             {props.children && props.children}
             <Footer />

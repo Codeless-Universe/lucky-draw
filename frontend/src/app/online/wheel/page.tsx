@@ -7,6 +7,7 @@ import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { Button, Card, CardBody, Listbox, ListboxItem, Tab, Tabs, User } from "@nextui-org/react";
 import { useQuery } from "convex/react";
+import { toast } from "react-toastify";
 
 export default function Home(props: {}) {
   const { param } = useRouterHelper({ id: "" });
@@ -61,7 +62,13 @@ export default function Home(props: {}) {
                 </div>
 
                 <div>
-                  <Button>Invite friends</Button>
+                  <Button
+                    onPress={() => {
+                      toast("Wow so easy!");
+                    }}
+                  >
+                    Invite friends
+                  </Button>
                 </div>
               </div>
             </CardBody>
