@@ -111,7 +111,8 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
             func();
           }}
         >
-          {countDown == 0 ? centerText : countDown.toFixed(1)}
+          {/* {countDown == 0 ? centerText : countDown.toFixed(1)} */}
+          {centerText}
         </div>
       </div>
     </div>
