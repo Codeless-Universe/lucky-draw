@@ -1,5 +1,5 @@
 import { api } from "@convex/_generated/api";
-import { User, Button } from "@nextui-org/react";
+import { User, Button, Chip } from "@nextui-org/react";
 import { useMutation, useQuery } from "convex/react";
 import { UserIdentity } from "convex/server";
 import { toast } from "react-toastify";
@@ -13,9 +13,10 @@ export default function OnlineMain_Players(props: { ownerSubject: string }) {
   return (
     <div className="flex flex-col items-start gap-2">
       {list?.map((item) => {
+        const lastAt: number = item.lastAt;
         const user: UserIdentity = item.userIdentity;
         return (
-          <div key={user.subject}>
+          <div key={user.subject} className="flex flex-row items-center justify-center gap-2">
             <User
               name={user.name}
               description={user.email}
@@ -24,6 +25,27 @@ export default function OnlineMain_Players(props: { ownerSubject: string }) {
                 size: "sm",
               }}
             />
+            {(() => {
+              if (user.subject == props.ownerSubject) {
+                return (
+                  <Chip size="sm" color="primary">
+                    Owner
+                  </Chip>
+                );
+              }
+              return <></>;
+            })()}
+            <Chip size="sm" color="warning" variant="dot">
+              Current
+            </Chip>
+            {(() => {
+              if (lastAt + 60000 < Date.now())
+                return (
+                  <Chip size="sm" variant="dot" color="danger">
+                    Offline
+                  </Chip>
+                );
+            })()}
           </div>
         );
       })}
