@@ -12,6 +12,7 @@ import { i18nScope } from "@/languages";
 import { VoerkaI18nProvider } from "@voerkai18n/react";
 import { ThemeDarkHelper, ThemeDarkStore } from "./theme/ThemeDarkHelper";
 import BaseToast from "./base/BaseToast";
+import { LayoutHelper } from "./helper/LayoutHelper";
 
 export function NextUIApp(
   props: Readonly<{
@@ -24,6 +25,7 @@ export function NextUIApp(
 
   React.useEffect(() => {
     ThemeDarkHelper.init();
+    LayoutHelper.setWidth("lg");
   }, []);
 
   // 2. Wrap NextUIProvider at the root of your app

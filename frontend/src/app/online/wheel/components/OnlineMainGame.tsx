@@ -42,11 +42,13 @@ export default function OnlineMainGame(props: {}) {
             random: res.room.randomNumber,
             lastAt: res.room.lastAt,
           }}
-          onTap={() => {
-            play({
+          onTap={async () => {
+            const res = await play({
               roomId: param.roomId as Id<"room">,
             });
-            // toast.info("Tap");
+            if (res.code != 0) {
+              toast.error(res.msg);
+            }
           }}
         ></SpinWheelDom>
       </div>

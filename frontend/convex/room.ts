@@ -114,7 +114,7 @@ export const play = mutation({
     members.forEach((item, index) => {
       if (item.memberSubject == room?.currentUserSubject) {
         let nextIndex = index + 1;
-        if (nextIndex == members.length - 1) {
+        if (nextIndex >= members.length) {
           nextIndex = 0;
         }
         nextUserSubject = members[nextIndex].memberSubject;
@@ -132,11 +132,12 @@ export const play = mutation({
     //将游戏记录写到新表里
     await ctx.db.insert("room_record", {
       roomId: args.roomId,
+      wheelId: room.wheelId,
       randomNumber: random,
       currentUserSubject: identity.subject,
       nextUserSubject: nextUserSubject,
     });
 
-    return true;
+    return { code: 0, msg: "success" };
   },
 });
