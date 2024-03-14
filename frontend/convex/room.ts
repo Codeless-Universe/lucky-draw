@@ -69,13 +69,39 @@ export const play = mutation({
       .collect();
 
     const ownerRecord = list[0];
-    if (ownerRecord?.currentUser != identity.subject) {
+    if (ownerRecord?.currentUserSubject != identity.subject) {
       return { code: -1, msg: "Now the player is not you." };
     }
 
+    let ownerId = ownerRecord._id;
+    let ownerSubject = ownerRecord.ownerSubject;
+    // 查找下一个用户
+    let nextUserSubject = ownerSubject;
+    list.forEach((item, index) => {
+      if (item.memberSubject == ownerRecord.currentUserSubject) {
+        let nextIndex = index + 1;
+        if (nextIndex == list.length - 1) {
+          nextIndex = 0;
+        }
+        nextUserSubject = list[nextIndex].memberSubject;
+      }
+    });
+
     //写入一个随机数
+    const random = Math.random();
+    await ctx.db.patch(ownerId as Id<"room_member">, {
+      lastAt: Date.now(),
+      currentUserSubject: nextUserSubject,
+      randomNumber: random,
+    });
 
     //将游戏记录写到新表里
+    await ctx.db.insert("room_record", {
+      ownerSubject: ownerSubject,
+      randomNumber: random,
+      currentUserSubject: identity.subject,
+      nextUserSubject: nextUserSubject,
+    });
 
     return true;
   },
