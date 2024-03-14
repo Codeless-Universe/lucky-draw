@@ -19,11 +19,22 @@ export default function Home(props: {}) {
 
   return (
     <PageWrap className="">
-      <div className="grid grid-cols-2 gap-2">
-        <SpinWheelWrap labels={["Player 1", "Player 2"]}></SpinWheelWrap>
-
+      <div className="relative">
+        <div className="absolute">
+          <div>
+            <div className="mb-1 text-tiny text-default-600">Now Player</div>
+            <User
+              name="Jane Doe"
+              avatarProps={{
+                name: "Jan",
+                size: "sm",
+              }}
+            />
+          </div>
+        </div>
         <SpinWheelWrap labels={wheel.wheels[0].items}></SpinWheelWrap>
       </div>
+
       <div className=" flex-rows flex items-center justify-center gap-2">
         <ButtonLoading
           onClick={async () => {
@@ -61,6 +72,10 @@ export default function Home(props: {}) {
                       size: "sm",
                     }}
                   />
+                </div>
+
+                <div>
+                  <Button>Invite friends</Button>
                 </div>
               </div>
             </CardBody>
