@@ -6,22 +6,22 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function OnlineMain_Players(props: { room: any }) {
-  const joinWheel = useMutation(api.room.joinWheel);
+  const join = useMutation(api.room.join);
   const list = useQuery(api.room.queryMembers, {
     roomId: props.room._id,
   });
 
   useEffect(() => {
-    let join = async () => {
-      await joinWheel({
+    let joinRoom = async () => {
+      await join({
         roomId: props.room._id,
       });
     };
 
     const intervalId = setInterval(() => {
-      join();
+      joinRoom();
     }, 40 * 1000);
-    join();
+    joinRoom();
 
     return () => {
       clearInterval(intervalId);
@@ -71,9 +71,6 @@ export default function OnlineMain_Players(props: { room: any }) {
       <div>
         <Button
           onPress={async () => {
-            await joinWheel({
-              ownerSubject: props.ownerSubject,
-            });
             toast("Wow so easy!");
           }}
         >

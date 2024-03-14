@@ -48,7 +48,7 @@ export const getById = query({
   },
 });
 
-export const joinWheel = mutation({
+export const join = mutation({
   args: { roomId: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -92,42 +92,38 @@ export const queryMembers = query({
 });
 
 export const play = mutation({
-  args: { ownerSubject: v.string() },
+  args: { roomId: v.id("room") },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity?.subject) {
       return { code: -1, msg: "Please login." };
     }
 
-    const list = await ctx.db
-      .query(ROOM_MEMBER)
-      .filter((q) =>
-        q.and(q.eq(q.field("ownerSubject"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)),
-      )
-      .collect();
-
-    const ownerRecord = list[0];
-    if (ownerRecord?.currentUserSubject != identity.subject) {
+    const room = await ctx.db.get(args.roomId);
+    if (room?.currentUserSubject != identity.subject) {
       return { code: -1, msg: "Now the player is not you." };
     }
 
-    let ownerId = ownerRecord._id;
-    let ownerSubject = ownerRecord.ownerSubject;
+    const members = await ctx.db
+      .query(ROOM_MEMBER)
+      .filter((q) => q.and(q.eq(q.field("roomId"), args.roomId), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)))
+      .collect();
+
     // 查找下一个用户
-    let nextUserSubject = ownerSubject;
-    list.forEach((item, index) => {
-      if (item.memberSubject == ownerRecord.currentUserSubject) {
+    let nextUserSubject = room.ownerSubject;
+    members.forEach((item, index) => {
+      if (item.memberSubject == room?.currentUserSubject) {
         let nextIndex = index + 1;
-        if (nextIndex == list.length - 1) {
+        if (nextIndex == members.length - 1) {
           nextIndex = 0;
         }
-        nextUserSubject = list[nextIndex].memberSubject;
+        nextUserSubject = members[nextIndex].memberSubject;
       }
     });
 
     //写入一个随机数
     const random = Math.random();
-    await ctx.db.patch(ownerId as Id<"room_member">, {
+    await ctx.db.patch(args.roomId, {
       lastAt: Date.now(),
       currentUserSubject: nextUserSubject,
       randomNumber: random,
@@ -135,7 +131,7 @@ export const play = mutation({
 
     //将游戏记录写到新表里
     await ctx.db.insert("room_record", {
-      ownerSubject: ownerSubject,
+      roomId: args.roomId,
       randomNumber: random,
       currentUserSubject: identity.subject,
       nextUserSubject: nextUserSubject,
