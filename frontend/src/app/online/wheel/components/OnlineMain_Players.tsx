@@ -10,8 +10,6 @@ export default function OnlineMain_Players(props: { ownerSubject: string }) {
     ownerSubject: props.ownerSubject,
   });
 
-  console.log(list);
-
   return (
     <div className="flex flex-col items-start gap-2">
       {list?.map((item) => {

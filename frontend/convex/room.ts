@@ -42,7 +42,7 @@ export const queryMembers = query({
     const list = await ctx.db
       .query(ROOM_MEMBER)
       .filter((q) =>
-        q.and(q.eq(q.field("ownerId"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 10)),
+        q.and(q.eq(q.field("ownerId"), args.ownerSubject), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)),
       )
       .collect();
 
