@@ -95,6 +95,10 @@ export default function SpinWheelDom({ centerText = "Tap", ...props }: TProps_Sp
       return;
     }
 
+    if (props.displayResult.lastAt + 3000 < Date.now()) {
+      return;
+    }
+
     let temp = 3;
     let toIndex = Math.floor(props.displayResult.random * props.labels.length);
     wheel.spinToItem(toIndex, temp * 1000, true, 8);
