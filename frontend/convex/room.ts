@@ -22,10 +22,14 @@ export const joinWheel = mutation({
         memberId: identity?.subject,
         lastAt: Date.now(),
         status: "PLAY",
+        userIdentity: JSON.parse(JSON.stringify(identity)),
       });
     } else {
       let id = list[0]._id;
-      await ctx.db.patch(id as Id<"room_member">, { lastAt: Date.now() });
+      await ctx.db.patch(id as Id<"room_member">, {
+        lastAt: Date.now(),
+        userIdentity: JSON.parse(JSON.stringify(identity)),
+      });
     }
     return true;
   },
