@@ -1,10 +1,9 @@
 import LoginButton_Auth0 from "@/pkgs/auth0/components/LoginButton_Auth0";
-import { useConvexAuth } from "convex/react";
-import OnlineMainGame from "./OnlineMainGame";
 import { useRouterHelper } from "@/pkgs/base/helper/useRouterHelper";
-import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Button } from "@nextui-org/react";
+import { useConvexAuth } from "convex/react";
+import { useEffect } from "react";
+import OnlineMainGame from "./OnlineMainGame";
 
 export default function OnlineMain() {
   const { isLoading, isAuthenticated } = useConvexAuth();
