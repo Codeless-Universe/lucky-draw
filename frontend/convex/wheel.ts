@@ -4,6 +4,7 @@ export const get = query({
   args: { catalog: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
+    console.log("identity", identity);
 
     let list = await ctx.db
       .query("wheel")

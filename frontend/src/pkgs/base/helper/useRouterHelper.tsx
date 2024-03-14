@@ -59,16 +59,33 @@ export function useRouterHelper<T extends { [key: string]: string | number | str
       }
     }
 
+    const buildURL = (param: { [key: string]: any }) => {
+      const array = [];
+      for (let k in param) {
+        let value = param[k];
+        if (value instanceof Array) {
+          value.forEach((v) => {
+            array.push(k + "=" + v);
+          });
+        } else {
+          array.push(k + "=" + value);
+        }
+      }
+      return pathname + "?" + array.join("&");
+    };
+
     return {
       allSearchParams: allSearchParams,
       param: Object.assign({}, retParam, otherParam),
       path: pathname,
       router: router,
       push: (param: { [key: string]: any }) => {
-        router.push(pathname, Object.assign({}, allSearchParams, param));
+        let newURL = buildURL(Object.assign({}, allSearchParams, param));
+        router.push(newURL);
       },
       replace: (param: { [key: string]: any }) => {
-        router.replace(pathname, Object.assign({}, allSearchParams, param));
+        let newURL = buildURL(Object.assign({}, allSearchParams, param));
+        router.replace(newURL);
       },
     };
   };
