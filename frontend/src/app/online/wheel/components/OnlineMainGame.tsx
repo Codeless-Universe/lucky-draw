@@ -20,6 +20,7 @@ export default function OnlineMainGame(props: {}) {
   if (!res) {
     return <div>loading</div>;
   }
+  console.log("xxxxxxxxxx", res);
 
   return (
     <div className="">

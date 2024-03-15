@@ -13,13 +13,17 @@ export const useProjectConfig = () => {
           href: "/",
         },
         {
-          title: t("Offline"),
-          href: "/offline",
-        },
-        {
-          title: t("Online"),
+          title: t("Multiplayer"),
           href: "/online",
         },
+        // {
+        //   title: t("Offline"),
+        //   href: "/offline",
+        // },
+        // {
+        //   title: t("Online"),
+        //   href: "/online",
+        // },
       ],
       rightItems: [<LanguageSwitch />, <ThemeDarkSwitch />, <LoginButton_Auth0 />],
     },
