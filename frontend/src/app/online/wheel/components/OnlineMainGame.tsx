@@ -27,7 +27,7 @@ export default function OnlineMainGame(props: {}) {
       <div className="relative">
         <div className="absolute">
           <div>
-            <div className="mb-1 text-tiny text-default-600">Now Player</div>
+            <div className="mb-1 text-tiny text-default-600">Next round player</div>
             <User
               name={user.name}
               description={user.email}
