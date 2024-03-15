@@ -1,3 +1,4 @@
+import { AnyDataModel, GenericQueryCtx } from "convex/server";
 import { Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
@@ -36,13 +37,33 @@ export const createRoom = mutation({
   },
 });
 
+const queryRoom = async function (ctx: GenericQueryCtx<AnyDataModel>, roomId: Id<"room">) {
+  const room = await ctx.db.get(roomId);
+  const members = await ctx.db
+    .query(ROOM_MEMBER)
+    .filter((q) => q.and(q.eq(q.field("roomId"), roomId), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)))
+    .collect();
+  let currentMember: any;
+  members.forEach((item, index) => {
+    if (item.memberSubject == room?.currentUserSubject) {
+      currentMember = item;
+    }
+  });
+
+  return {
+    room,
+    members,
+    currentMember,
+  };
+};
+
 export const getById = query({
   args: { id: v.id("room") },
   handler: async (ctx, args) => {
-    const room = await ctx.db.get(args.id);
-    const wheel = await ctx.db.get(room.wheelId);
+    const retObj = await queryRoom(ctx, args.id);
+    const wheel = await ctx.db.get(retObj.room.wheelId);
     return {
-      room,
+      ...retObj,
       wheel,
     };
   },

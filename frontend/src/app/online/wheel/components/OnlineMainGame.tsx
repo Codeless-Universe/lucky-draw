@@ -20,8 +20,8 @@ export default function OnlineMainGame(props: {}) {
   if (!res) {
     return <div>loading</div>;
   }
-  console.log("xxxxxxxxxx", res);
 
+  const user = res.currentMember?.userIdentity;
   return (
     <div className="">
       <div className="relative">
@@ -29,9 +29,10 @@ export default function OnlineMainGame(props: {}) {
           <div>
             <div className="mb-1 text-tiny text-default-600">Now Player</div>
             <User
-              name="Jane Doe"
+              name={user.name}
+              description={user.email}
               avatarProps={{
-                name: "Jan",
+                name: user.name || user.email,
                 size: "sm",
               }}
             />
