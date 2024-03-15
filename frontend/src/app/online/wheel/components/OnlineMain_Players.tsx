@@ -71,7 +71,20 @@ export default function OnlineMain_Players(props: { room: any }) {
       <div>
         <Button
           onPress={async () => {
-            toast("Wow so easy!");
+            function copyToClipboard(text: string) {
+              var dummy = document.createElement("textarea");
+              document.body.appendChild(dummy);
+              dummy.value = text;
+              dummy.select();
+              document.execCommand("copy");
+              document.body.removeChild(dummy);
+            }
+
+            // 使用例子
+            var content = "Click on the link to play Lucky Wheel together:\n\n" + location.href;
+            copyToClipboard(content);
+
+            toast("The invitation link has been copied to the clipboard, share it with friends now!");
           }}
         >
           Invite friends
