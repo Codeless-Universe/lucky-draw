@@ -125,6 +125,9 @@ export const play = mutation({
     if (room?.currentUserSubject != identity.subject) {
       return { code: -1, msg: "Now the player is not you." };
     }
+    if (room.lastAt && room.lastAt + 10 * 1000 > Date.now()) {
+      return { code: -1, msg: "Click too fast, try again later." };
+    }
 
     const members = await ctx.db
       .query(ROOM_MEMBER)
