@@ -9,6 +9,7 @@ import { useMutation, useQuery } from "convex/react";
 import { toast } from "react-toastify";
 import OnlineMain_Players from "./OnlineMain_Players";
 import SpinWheelDom from "@/pkgs/spinwheel/SpinWheelDom";
+import OnlineMain_Records from "./OnlineMain_Records";
 
 export default function OnlineMainGame(props: {}) {
   const { param, replace } = useRouterHelper({ id: "", roomId: "" });
@@ -55,27 +56,27 @@ export default function OnlineMainGame(props: {}) {
         ></SpinWheelDom>
       </div>
 
-      <Tabs aria-label="Options" className="mt-6">
-        <Tab key="photos" title="Players">
-          <Card>
-            <CardBody>{res.room ? <OnlineMain_Players room={res.room} /> : <></>}</CardBody>
-          </Card>
-        </Tab>
-        <Tab key="music" title="Records">
-          <Card>
-            <CardBody>
-              <Listbox aria-label="Actions" onAction={(key) => alert(key)}>
-                <ListboxItem key="new" description="Result1 | restul2">
-                  Play1
-                </ListboxItem>
-                <ListboxItem key="new" description="Result1 | restul2">
-                  Play2
-                </ListboxItem>
-              </Listbox>
-            </CardBody>
-          </Card>
-        </Tab>
-      </Tabs>
+      {(() => {
+        if (!res.room) {
+          return <div></div>;
+        }
+        return (
+          <Tabs aria-label="Options" className="mt-6">
+            <Tab key="photos" title="Players">
+              <Card>
+                <CardBody>{res.room ? <OnlineMain_Players room={res.room} /> : <></>}</CardBody>
+              </Card>
+            </Tab>
+            <Tab key="music" title="Records">
+              <Card>
+                <CardBody>
+                  <OnlineMain_Records room={res.room} />
+                </CardBody>
+              </Card>
+            </Tab>
+          </Tabs>
+        );
+      })()}
     </div>
   );
 }

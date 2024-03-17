@@ -171,3 +171,14 @@ export const play = mutation({
     return { code: 0, msg: "success" };
   },
 });
+
+export const queryRecords = query({
+  args: { roomId: v.string() },
+  handler: async (ctx, args) => {
+    const list = await ctx.db
+      .query("room_record")
+      .filter((q) => q.eq(q.field("roomId"), args.roomId))
+      .collect();
+    return list;
+  },
+});
