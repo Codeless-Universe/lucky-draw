@@ -1,12 +1,12 @@
 import { api } from "@convex/_generated/api";
-import { Listbox, ListboxItem } from "@nextui-org/react";
+import { Chip, Listbox, ListboxItem, User } from "@nextui-org/react";
 import { useQuery } from "convex/react";
+import { UserIdentity } from "convex/server";
 
 export default function OnlineMain_Records(props: { room: any }) {
   const list = useQuery(api.room.queryRecords, {
     roomId: props.room._id,
   });
-  console.log("xxxx", list);
   if (!list) {
     return <div>Loading</div>;
   }
@@ -14,19 +14,32 @@ export default function OnlineMain_Records(props: { room: any }) {
     return <div>No records</div>;
   }
 
-  // <ListboxItem key="new" description="Result1 | restul2">
-  //       Play1
-  //     </ListboxItem>
-  //     <ListboxItem key="new2" description="Result1 | restul2">
-  //       Play2
-  //     </ListboxItem>
   return (
-    <Listbox aria-label="Actions" onAction={(key) => alert(key)} items={list}>
-      {(item) => (
-        <ListboxItem key={item._id} description={item.resultValue}>
-          {item.playerInfo.nickname} {item.playerInfo.email}
-        </ListboxItem>
-      )}
-    </Listbox>
+    <div className="flex flex-col items-start gap-2">
+      {list?.map((item) => {
+        const _creationTime: number = item._creationTime;
+        const user: UserIdentity = item.playerInfo;
+        return (
+          <div key={item._id} className="flex flex-row items-center justify-center gap-2">
+            <User
+              name={user.name}
+              description={
+                <div>
+                  <div>user.email</div>
+                  <div>{_creationTime}</div>
+                </div>
+              }
+              avatarProps={{
+                name: user.name || user.email,
+                size: "sm",
+              }}
+            />
+            <Chip size="sm" color="warning" variant="dot">
+              {item.resultValue}
+            </Chip>
+          </div>
+        );
+      })}
+    </div>
   );
 }

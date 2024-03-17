@@ -178,6 +178,7 @@ export const queryRecords = query({
     const list = await ctx.db
       .query("room_record")
       .filter((q) => q.eq(q.field("roomId"), args.roomId))
+      .order("desc")
       .collect();
     return list;
   },
