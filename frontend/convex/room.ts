@@ -143,8 +143,13 @@ export const play = mutation({
       }
     });
 
+    // 查询转盘
+    const wheel = await ctx.db.get(room.wheelId);
+
     //写入一个随机数
     const random = Math.random();
+    const resultIndex = Math.floor(random * wheel.wheels[0].items.length);
+
     await ctx.db.patch(args.roomId, {
       lastAt: Date.now(),
       currentUserSubject: nextUserSubject,
@@ -156,6 +161,9 @@ export const play = mutation({
       roomId: args.roomId,
       wheelId: room.wheelId,
       randomNumber: random,
+      resultIndex: resultIndex,
+      resultValue: wheel.wheels[0].items[resultIndex],
+      playerInfo: identity,
       currentUserSubject: identity.subject,
       nextUserSubject: nextUserSubject,
     });
