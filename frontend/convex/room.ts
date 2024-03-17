@@ -41,7 +41,8 @@ const queryRoom = async function (ctx: GenericQueryCtx<AnyDataModel>, roomId: Id
   const room = await ctx.db.get(roomId);
   const members = await ctx.db
     .query(ROOM_MEMBER)
-    .filter((q) => q.and(q.eq(q.field("roomId"), roomId), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)))
+    // .filter((q) => q.and(q.eq(q.field("roomId"), roomId), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)))
+    .filter((q) => q.and(q.eq(q.field("roomId"), roomId), true))
     .collect();
   let currentMember: any;
   members.forEach((item, index) => {
@@ -50,8 +51,10 @@ const queryRoom = async function (ctx: GenericQueryCtx<AnyDataModel>, roomId: Id
     }
   });
 
+  const wheel = await ctx.db.get(room.wheelId);
   return {
     room,
+    wheel,
     members,
     currentMember,
   };
@@ -61,10 +64,8 @@ export const getById = query({
   args: { id: v.id("room") },
   handler: async (ctx, args) => {
     const retObj = await queryRoom(ctx, args.id);
-    const wheel = await ctx.db.get(retObj.room.wheelId);
     return {
       ...retObj,
-      wheel,
     };
   },
 });
@@ -106,7 +107,7 @@ export const queryMembers = query({
   handler: async (ctx, args) => {
     const list = await ctx.db
       .query(ROOM_MEMBER)
-      .filter((q) => q.and(q.eq(q.field("roomId"), args.roomId), q.lt(q.field("lastAt"), Date.now() + 1000 * 60 * 5)))
+      .filter((q) => q.and(q.eq(q.field("roomId"), args.roomId), true))
       .collect();
     return list;
   },
